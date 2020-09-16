@@ -65,13 +65,13 @@ export default {
         }
     },
     methods: {
-        signUp () {
+        //signUp () {
+        async signUp () {
             const user = { email: this.email, password: this.password };
-            // const {
-            //     data: { token }
-            // } = await LoginServices.signUp(user);
-            this.$store.dispatch('login/signUp', user);
-            this.$router.push('/');
+            const { data: { token } }= await LoginServices.signUp(user)
+            this.$store.dispatch('login/signUp', token);
+            //this.$store.dispatch('login/signUp', user);
+            this.$router.push('/signin');
         }
     }
 };

@@ -48,6 +48,11 @@
                             >Ingresar</v-btn>
                         </v-card-actions>
                     </v-form>
+                    <v-snackbar
+                        color="error"
+                        v-model="snackbar"
+                        top
+                    >¡Usuario no existe!</v-snackbar>
                 </v-card>
             </v-col>
         </v-row>
@@ -55,7 +60,6 @@
 </template>
 
 <script>
-
 import LoginServices from "../services";
 
 export default {
@@ -63,17 +67,22 @@ export default {
     data () {
         return {
             email: '',
-            password: ''
+            password: '',
+            snackbar: false
         }
     },
     methods:{
         async signIn () {
             const user = { email: this.email, password: this.password };
-            const {
-                data: { token }
-            } = await LoginServices.signIn(user);
-            this.$store.dispatch('login/signIn', token);
-            this.$router.push('/');
+            const  { data: { token } } = await LoginServices.signIn(user)
+            console.log("token: " + token);
+            if(!token){
+                this.snackbar = true
+            }else{
+                this.$store.dispatch('login/signIn', token);
+                //this.$store.dispatch('login/signIn', user);
+                this.$router.push('/');
+            }
         }
     }
 }
