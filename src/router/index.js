@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { LoginRoutes } from '@/modules/login/routes'
 import { AuthorRoutes } from '@/modules/author/routes'
+import { BookRoutes } from '@/modules/book/routes'
 
 import HomePage from '@/pages/Home'
 import store from '../store'
@@ -17,7 +18,8 @@ Vue.use(VueRouter)
     //redirect: '/signin',
   },
     ...LoginRoutes,
-    ...AuthorRoutes
+    ...AuthorRoutes,
+    ...BookRoutes
 ]
 
 const router = new VueRouter({
